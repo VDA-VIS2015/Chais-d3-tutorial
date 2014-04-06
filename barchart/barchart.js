@@ -69,15 +69,12 @@ d3.csv("f1.csv", function(error, data) {
        .attr("class", "g")
        .attr("transform", function(d) {
          return "translate("+yearX(d.year)+",0)";
-       });
-  year.selectAll("rect")
-      .data(data)
-    .enter().append("rect")
-      .attr("width", teamX.rangeBand())
-      .attr("x", function(d) {return teamX(d.constructor);})
-      .attr("y", function(d) {return y(d.points);})
-      .attr("height", function(d) {return height - y(d.points);})
-      .style("fill", function(d) {return colors(d.constructor);});
+       }).append("rect")
+         .attr("width", teamX.rangeBand())
+         .attr("x", function(d) {return teamX(d.constructor);})
+         .attr("y", function(d) {return y(d.points);})
+         .attr("height", function(d) {return height - y(d.points);})
+         .style("fill", function(d) {return colors(d.constructor);});
 
   // Add the legend for the colors
   var legend = svg.selectAll(".legend")
