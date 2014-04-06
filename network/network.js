@@ -1,6 +1,6 @@
 
 var chartWidth = 960,
-    chartHeight = 600;
+    chartHeight = 800;
 
 var margin = {top: 20, right: 40, bottom: 30, left: 40},
     width = chartWidth - margin.left - margin.right,
