@@ -1,3 +1,11 @@
+## running
+
+This needs a local web server running to properly load the data files. For example, run this command from the base directory:
+
+```
+python -m SimpleHTTPServer
+```
+
 ## Bar chart
 
 0. Demo final product
