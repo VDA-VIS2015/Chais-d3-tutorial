@@ -27,28 +27,27 @@ d3.csv("f1.csv", function(error, data) {
       maxPoints = d3.max(data, function(d) {return d.points;}),
       minYear = d3.min(data, function(d) {return d.year;}),
       maxYear = d3.max(data, function(d) {return d.year;}),
-      teams = d3.set(data.map(function(d) {return d.constructor;})).values();
+      teams = d3.set(data.map(function(d) {return d.constructor;})).values(),
+      years = d3.range(minYear, maxYear+1);
   
-  var yearX = d3.scale.ordinal()
+  var mainX = d3.scale.ordinal()
       .rangeRoundBands([0, width], 0.25)
-      .domain(d3.range(minYear, maxYear+1));
-  var teamX = d3.scale.ordinal()
-      .rangeRoundBands([0, yearX.rangeBand()], 0.1)
+      .domain(years);
+  var subX = d3.scale.ordinal()
+      .rangeRoundBands([0, mainX.rangeBand()], 0.1)
       .domain(teams);
   var y = d3.scale.linear()
       .range([height, 0]) // y is backwards because 0 is the top left corner
       .domain([minPoints, maxPoints]);
-  /*
-  var colors = d3.scale.ordinal()
-      .domain(teams)
-      .range(colorbrewer.Set3[teams.length]);
-  */
-  var colors = d3.scale.category10()
+
+  var teamColors = d3.scale.category10()
       .domain(teams);
+  var yearColors = d3.scale.category10()
+      .domain(years);
 
   // Set up the axes
   var xAxis = d3.svg.axis()
-      .scale(yearX)
+      .scale(mainX)
       .orient("bottom");
   var yAxis = d3.svg.axis()
       .scale(y)
@@ -63,37 +62,69 @@ d3.csv("f1.csv", function(error, data) {
        .call(yAxis);
   
   // Now add the bars
-  var year = chart.selectAll(".year")
+  chart.selectAll(".group")
        .data(data)
      .enter().append("g")
-       .attr("class", "g")
+       .attr("class", "group")
        .attr("transform", function(d) {
-         return "translate("+yearX(d.year)+",0)";
+         return "translate("+mainX(d.year)+",0)";
        }).append("rect")
-         .attr("width", teamX.rangeBand())
-         .attr("x", function(d) {return teamX(d.constructor);})
+         .attr("width", subX.rangeBand())
+         .attr("x", function(d) {return subX(d.constructor);})
          .attr("y", function(d) {return y(d.points);})
          .attr("height", function(d) {return height - y(d.points);})
-         .style("fill", function(d) {return colors(d.constructor);});
+         .style("fill", function(d) {return teamColors(d.constructor);});
 
   // Add the legend for the colors
-  var legend = svg.selectAll(".legend")
-      .data(teams)
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) {
-        return "translate(0," + i * 20 + ")";
-      });
-  legend.append("rect")
-        .attr("x", width - 18)
-        .attr("width", 18)
-        .attr("height", 18)
-        .style("fill", colors);
-  legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .attr("text-anchor", "end")
-        .text(function(d) {return d;});
+  computeLegend(teams, teamColors);
+
+  function computeLegend(groups, colors) {
+    legend = svg.selectAll(".legend");
+    var dataLegend = legend.data(groups, function(d) {return d;});
+    dataLegend.enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) {
+          return "translate(0," + i * 20 + ")";
+        });
+    dataLegend.exit().remove();
+    dataLegend.append("rect")
+          .attr("x", width - 18)
+          .attr("width", 18)
+          .attr("height", 18)
+          .style("fill", colors);
+    dataLegend.append("text")
+          .attr("x", width - 24)
+          .attr("y", 9)
+          .attr("dy", ".35em")
+          .attr("text-anchor", "end")
+          .text(function(d) {return d;});
+  }
+  
+
+  d3.selectAll("input").on("change", function() {
+    if(this.value === "year") {
+      changeLayout(teams, years, yearColors, "constructor", "year");
+      computeLegend(years, yearColors);
+    } else {
+      changeLayout(years, teams, teamColors, "year", "constructor");
+      computeLegend(teams, teamColors);
+    }
+  });
+
+  function changeLayout(main, sub, colors, mainKey, subKey) {
+    mainX.domain(main);
+    subX.domain(sub)
+        .rangeRoundBands([0, mainX.rangeBand()], 0.1);
+    chart.selectAll(".x.axis").call(xAxis);
+    chart.selectAll(".group")
+         .data(data)
+         .transition().delay(100)
+         .attr("transform", function(d) {
+           return "translate("+mainX(d[mainKey])+",0)";
+         }).selectAll("rect")
+           .attr("width", subX.rangeBand())
+           .attr("x", function(d) {return subX(d[subKey]);})
+           .style("fill", function(d) {return colors(d[subKey]);});
+  }
 });
 
