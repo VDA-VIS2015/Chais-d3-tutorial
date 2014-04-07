@@ -19,6 +19,16 @@ var lineColors = d3.scale.ordinal()
     .domain(["U1", "U2", "U3", "U4", "U6"])
     .range(["red", "purple", "orange", "green", "brown"]);
 
+// Step 8: add tooltips
+var tip = d3.tip()
+    .attr("class", "station-tip")
+    .offset([-10, 0])
+    .html(function(d) {
+      return "<strong>" + d.name + "</strong> (" + d.year + ")";
+    });
+
+svg.call(tip);
+
 // Step 2: add data
 d3.json("ubahn.json", function(error, graph) {
 
@@ -45,11 +55,11 @@ d3.json("ubahn.json", function(error, graph) {
     .enter().append("circle")
       .attr("class", "station")
       .attr("r", 7)
-      .call(layout.drag);
+      .call(layout.drag)
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide);
 
   // Step 7: add drag event
-  
-// Step 8: add tooltips
   
   // This gets updated every time the layout iterates
   layout.on("tick", function() {
