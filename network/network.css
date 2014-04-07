@@ -15,7 +15,7 @@ svg {
 
 /* Step 4: add edges */
 .line {
-  stroke-width: 2px;
+  stroke-width: 3px;
 }
 
 /* Step 7: add tooltips */
