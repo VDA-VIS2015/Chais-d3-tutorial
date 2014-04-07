@@ -4,15 +4,6 @@ svg {
 }
 
 /* Step 4: add axes */
-.axis path,
-.axis line {
-  fill: none;
-  stroke: grey;
-  shape-rendering: crispEdges;
-}
 
 /* Step 5: add dots */
-.dot {
-  stroke-width: 1px;
-}
 
