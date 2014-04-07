@@ -45,7 +45,21 @@ d3.csv("f1.csv", function(error, data) {
       .range([height, 0]) // y is backwards because 0 is the top left corner
       .domain([minPoints, maxPoints]);
 
-// Step 5: set up the axes
+  // Step 5: set up the axes
+  var xAxis = d3.svg.axis()
+      .scale(mainX)
+      .orient("bottom");
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+  
+  chart.append("g")
+       .attr("class", "x axis")
+       .attr("transform", "translate(0," + height + ")")
+       .call(xAxis);
+  chart.append("g")
+       .attr("class", "y axis")
+       .call(yAxis);
   
 // Step 6: add the bars
 
