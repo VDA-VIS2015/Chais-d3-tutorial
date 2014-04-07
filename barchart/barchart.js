@@ -17,6 +17,22 @@ var chart = svg.append("g")
    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Step 3: load data file
+// This is asynchronous so we should wait until we get data 
+// before making the chart
+d3.csv("f1.csv", function(error, data) {
+  // Convert strings to numbers
+  data.forEach(function(d) {
+    d.year = +d.year;
+    d.points = +d.points;
+  });
+
+  // Compute the extents of the data
+  var minPoints = 0,
+      maxPoints = d3.max(data, function(d) {return d.points;}),
+      minYear = d3.min(data, function(d) {return d.year;}),
+      maxYear = d3.max(data, function(d) {return d.year;}),
+      teams = d3.set(data.map(function(d) {return d.constructor;})).values(),
+      years = d3.range(minYear, maxYear+1);
 
 // Step 4: add scales
 
@@ -30,3 +46,4 @@ var chart = svg.append("g")
 
 // Step 9: add interactivity
 
+});
