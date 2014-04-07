@@ -61,7 +61,18 @@ d3.csv("f1.csv", function(error, data) {
        .attr("class", "y axis")
        .call(yAxis);
   
-// Step 6: add the bars
+  // Step 6: add the bars
+  chart.selectAll(".group")
+       .data(data)
+     .enter().append("g")
+       .attr("class", "group")
+       .attr("transform", function(d) {
+         return "translate("+mainX(d.year)+",0)";
+       }).append("rect")
+         .attr("width", subX.rangeBand())
+         .attr("x", function(d) {return subX(d.constructor);})
+         .attr("y", function(d) {return y(d.points);})
+         .attr("height", function(d) {return height - y(d.points);});
 
 // Step 7: color bars
 
