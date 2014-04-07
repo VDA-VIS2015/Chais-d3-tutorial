@@ -15,6 +15,7 @@ var chart = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Step 2: add data
+d3.json("ubahn.json", function(error, graph) {
 
 // Step 3: add layout
 
@@ -27,4 +28,6 @@ var chart = svg.append("g")
 // Step 7: add drag event
   
 // Step 8: add tooltips
+
+});
 
