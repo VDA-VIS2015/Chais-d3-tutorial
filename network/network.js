@@ -35,6 +35,10 @@ d3.json("ubahn.json", function(error, graph) {
 // Step 7: add drag event
   
 // Step 8: add tooltips
+  
+  // This gets updated every time the layout iterates
+  layout.on("tick", function() {
+  });
 
 });
 
