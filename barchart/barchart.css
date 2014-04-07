@@ -3,10 +3,5 @@ svg {
   border: 1px solid grey;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: grey;
-  shape-rendering: crispEdges;
-}
+/* Step 5: set up the axes */
 
