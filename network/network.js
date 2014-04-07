@@ -13,9 +13,18 @@ var svg = d3.select("#network")
 var chart = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var colors = d3.scale.ordinal()
+var lineColors = d3.scale.ordinal()
     .domain(["U1", "U2", "U3", "U4", "U6"])
     .range(["red", "purple", "orange", "green", "brown"]);
+
+var tip = d3.tip()
+    .attr("class", "station-tip")
+    .offset([-10, 0])
+    .html(function(d) {
+      return "<strong>" + d.name + "</strong> (" + d.year + ")";
+    });
+
+svg.call(tip);
 
 d3.json("ubahn.json", function(error, graph) {
 
@@ -27,19 +36,21 @@ d3.json("ubahn.json", function(error, graph) {
       .links(graph.links)
       .start();
 
+  var link = svg.selectAll(".line")
+      .data(graph.links)
+    .enter().append("line")
+      .attr("class", "line")
+      .attr("stroke", function(d) {return lineColors(d.line);});
+
   var node = svg.selectAll(".station")
       .data(graph.nodes)
     .enter().append("circle")
       .attr("class", "station")
       .attr("r", 7)
-      .call(layout.drag);
+      .call(layout.drag)
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide);
   
-  var link = svg.selectAll(".line")
-      .data(graph.links)
-    .enter().append("line")
-      .attr("class", "line")
-      .attr("stroke", function(d) {return colors(d.line);});
-
   layout.on("tick", function() {
     node.attr("cx", function(d) {return d.x;})
         .attr("cy", function(d) {return d.y;});
