@@ -34,7 +34,16 @@ d3.csv("f1.csv", function(error, data) {
       teams = d3.set(data.map(function(d) {return d.constructor;})).values(),
       years = d3.range(minYear, maxYear+1);
 
-// Step 4: add scales
+  // Step 4: add scales
+  var mainX = d3.scale.ordinal() // The between-group axis
+      .rangeRoundBands([0, width], 0.25)
+      .domain(years);
+  var subX = d3.scale.ordinal() // The within-group axis
+      .rangeRoundBands([0, mainX.rangeBand()], 0.1)
+      .domain(teams);
+  var y = d3.scale.linear()
+      .range([height, 0]) // y is backwards because 0 is the top left corner
+      .domain([minPoints, maxPoints]);
 
 // Step 5: set up the axes
   
