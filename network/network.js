@@ -14,6 +14,11 @@ var svg = d3.select("#network")
 var chart = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+// Step 6: color edges
+var lineColors = d3.scale.ordinal()
+    .domain(["U1", "U2", "U3", "U4", "U6"])
+    .range(["red", "purple", "orange", "green", "brown"]);
+
 // Step 2: add data
 d3.json("ubahn.json", function(error, graph) {
 
@@ -31,7 +36,8 @@ d3.json("ubahn.json", function(error, graph) {
   var link = svg.selectAll(".line")
       .data(graph.links)
     .enter().append("line")
-      .attr("class", "line");
+      .attr("class", "line")
+      .attr("stroke", function(d) {return lineColors(d.line);});
 
   // Step 5: add nodes
   var node = svg.selectAll(".station")
@@ -40,8 +46,6 @@ d3.json("ubahn.json", function(error, graph) {
       .attr("class", "station")
       .attr("r", 7);
 
-// Step 6: color edges
-  
 // Step 7: add drag event
   
 // Step 8: add tooltips
