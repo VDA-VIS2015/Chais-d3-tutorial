@@ -14,12 +14,12 @@ var svg = d3.select("#network")
 var chart = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// Step 5: color edges
+// Step 6: color edges
 var lineColors = d3.scale.ordinal()
     .domain(["U1", "U2", "U3", "U4", "U6"])
     .range(["red", "purple", "orange", "green", "brown"]);
 
-// Step 7: add tooltips
+// Step 8: add tooltips
 var tip = d3.tip()
     .attr("class", "station-tip")
     .offset([-10, 0])
@@ -49,7 +49,7 @@ d3.json("ubahn.json", function(error, graph) {
       .attr("class", "line")
       .attr("stroke", function(d) {return lineColors(d.line);});
 
-  // Step 3: add nodes
+  // Step 5: add nodes
   var node = svg.selectAll(".station")
       .data(graph.nodes)
     .enter().append("circle")
@@ -59,7 +59,7 @@ d3.json("ubahn.json", function(error, graph) {
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide);
   
-  // Step 6: add drag event
+  // Step 7: add drag event
   
   layout.on("tick", function() {
     node.attr("cx", function(d) {return d.x;})
