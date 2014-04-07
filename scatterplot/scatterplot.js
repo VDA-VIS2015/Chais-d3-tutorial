@@ -68,7 +68,8 @@ d3.csv("cars.csv", function(error, data) {
        .attr("cx", function(d) {return x(d.weight);})
        .attr("cy", function(d) {return y(d.mpg);})
        .attr("r", 5)
-       .style("fill", function(d) {return colors(d.cylinders);});
+       .style("fill", function(d) {return colors(d.cylinders);})
+       .style("stroke", function(d) {return d3.rgb(colors(d.cylinders)).darker();});
 
   // Legend
   var legend = svg.selectAll(".legend")

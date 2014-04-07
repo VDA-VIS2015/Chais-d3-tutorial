@@ -10,5 +10,7 @@ svg {
   shape-rendering: crispEdges;
 }
 
-
+.dot {
+  stroke-width: 1px;
+}
 
