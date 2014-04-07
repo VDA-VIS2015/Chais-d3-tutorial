@@ -80,7 +80,17 @@ d3.csv("cars.csv", function(error, data) {
        .text("MPG");
   
   
-// Step 5: add dots
+  // Step 5: add dots
+  chart.selectAll(".dot")
+       .data(data)
+     .enter().append("circle")
+       .attr("class", "dot")
+       .attr("cx", function(d) {return x(d.weight);})
+       .attr("cy", function(d) {return y(d.mpg);})
+       .attr("r", 5)
+       .style("fill", function(d) {return colors(d.cylinders);})
+       .style("stroke", function(d) {return d3.rgb(colors(d.cylinders)).darker();});
+  
 
 // Step 6: add legend
 

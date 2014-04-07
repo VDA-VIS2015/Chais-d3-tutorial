@@ -12,4 +12,7 @@ svg {
 }
 
 /* Step 5: add dots */
+.dot {
+  stroke-width: 1px;
+}
 
