@@ -4,6 +4,9 @@ svg {
 }
 
 /* Step 4: add edges */
+.line {
+  stroke-width: 3px;
+}
 
 /* Step 5: add nodes */
 
