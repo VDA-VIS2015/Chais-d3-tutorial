@@ -49,7 +49,36 @@ d3.csv("cars.csv", function(error, data) {
       .range(colorbrewer.Set2[cylinders.length])
       .domain(cylinders);
 
-// Step 4: add axes
+  // Step 4: add axes
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left");
+  
+  chart.append("g")
+       .attr("class", "x axis")
+       .attr("transform", "translate(0," + height + ")")
+       .call(xAxis)
+     .append("text")
+       .attr("class", "label")
+       .attr("x", width)
+       .attr("y", -6)
+       .style("text-anchor", "end")
+       .text("Weight (lbs)");
+
+  chart.append("g")
+       .attr("class", "y axis")
+       .call(yAxis)
+     .append("text")
+       .attr("class", "label")
+       .attr("transform", "rotate(-90)")
+       .attr("y", 6)
+       .attr("dy", ".71em")
+       .style("text-anchor", "end")
+       .text("MPG");
+  
   
 // Step 5: add dots
 
