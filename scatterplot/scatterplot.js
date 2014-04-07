@@ -15,6 +15,28 @@ var chart = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Step 2: load data
+d3.csv("cars.csv", function(error, data) {
+
+  data.forEach(function(d) {
+    d.mpg = +d.mpg;
+    d.cylinders = +d.cylinders;
+    d.displacement = +d.displacement;
+    d.horsepower = +d.horsepower;
+    d.weight = +d.weight;
+    d.acceleration = +d.acceleration;
+    d.year = +d.year;
+    d.origin = +d.origin;
+  });
+
+  // Step 3: add scales
+  var minWeight = 0,
+      maxWeight = d3.max(data, function(d) {return d.weight;}),
+      minMpg = 0,
+      maxMpg = d3.max(data, function(d) {return d.mpg;}),
+      cylinders = d3.set(data.map(function(d) {return d.cylinders;})).values();
+
+  // put cylinders in order
+  cylinders.sort(d3.ascending);
 
 // Step 3: add scales
 
@@ -23,3 +45,5 @@ var chart = svg.append("g")
 // Step 5: add dots
 
 // Step 6: add legend
+
+});
