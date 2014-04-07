@@ -9,6 +9,9 @@ svg {
 }
 
 /* Step 5: add nodes */
+.station {
+  fill: black;
+}
 
 /* Step 7: add drag event */
 
