@@ -33,7 +33,12 @@ d3.json("ubahn.json", function(error, graph) {
     .enter().append("line")
       .attr("class", "line");
 
-// Step 5: add nodes
+  // Step 5: add nodes
+  var node = svg.selectAll(".station")
+      .data(graph.nodes)
+    .enter().append("circle")
+      .attr("class", "station")
+      .attr("r", 7);
 
 // Step 6: color edges
   
@@ -43,6 +48,8 @@ d3.json("ubahn.json", function(error, graph) {
   
   // This gets updated every time the layout iterates
   layout.on("tick", function() {
+    node.attr("cx", function(d) {return d.x;})
+        .attr("cy", function(d) {return d.y;});
     link.attr("x1", function(d) {return d.source.x;})
         .attr("y1", function(d) {return d.source.y;})
         .attr("x2", function(d) {return d.target.x;})
