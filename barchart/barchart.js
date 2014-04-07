@@ -79,7 +79,30 @@ d3.csv("f1.csv", function(error, data) {
          .attr("height", function(d) {return height - y(d.points);})
          .style("fill", function(d) {return teamColors(d.constructor);});
 
-// Step 8: add the legend for the colors
+  // Step 8: add the legend for the colors
+  computeLegend(teams, teamColors);
+
+  function computeLegend(groups, colors) {
+    legend = svg.selectAll(".legend");
+    var dataLegend = legend.data(groups, function(d) {return d;});
+    dataLegend.enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) {
+          return "translate(0," + i * 20 + ")";
+        });
+    dataLegend.exit().remove();
+    dataLegend.append("rect")
+          .attr("x", width - 18)
+          .attr("width", 18)
+          .attr("height", 18)
+          .style("fill", colors);
+    dataLegend.append("text")
+          .attr("x", width - 24)
+          .attr("y", 9)
+          .attr("dy", ".35em")
+          .attr("text-anchor", "end")
+          .text(function(d) {return d;});
+  }
 
 // Step 9: add interactivity
 
