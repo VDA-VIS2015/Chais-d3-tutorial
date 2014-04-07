@@ -1,4 +1,5 @@
 
+// Step 1: basic chart dimensions
 var chartWidth = 960,
     chartHeight = 600;
 
@@ -13,6 +14,7 @@ var svg = d3.select("#scatterplot")
 var chart = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+// Step 2: load data
 d3.csv("cars.csv", function(error, data) {
 
   data.forEach(function(d) {
@@ -26,6 +28,7 @@ d3.csv("cars.csv", function(error, data) {
     d.origin = +d.origin;
   });
 
+  // Step 3: add scales
   var minWeight = 0,
       maxWeight = d3.max(data, function(d) {return d.weight;}),
       minMpg = 0,
@@ -45,6 +48,7 @@ d3.csv("cars.csv", function(error, data) {
       .range(colorbrewer.Set2[cylinders.length])
       .domain(cylinders);
   
+  // Step 4: add axes
   var xAxis = d3.svg.axis()
       .scale(x)
       .orient("bottom");
@@ -74,6 +78,7 @@ d3.csv("cars.csv", function(error, data) {
        .style("text-anchor", "end")
        .text("MPG");
   
+  // Step 5: add dots
   chart.selectAll(".dot")
        .data(data)
      .enter().append("circle")
@@ -84,7 +89,7 @@ d3.csv("cars.csv", function(error, data) {
        .style("fill", function(d) {return colors(d.cylinders);})
        .style("stroke", function(d) {return d3.rgb(colors(d.cylinders)).darker();});
 
-  // Legend
+  // Step 6: add legend
   var legend = svg.selectAll(".legend")
         .data(cylinders)
       .enter().append("g")
