@@ -1,10 +1,9 @@
-
 # UniWien D3 demo
 
 This is the code used for the D3 demo at UniWien.  There is a demo
-of a bar chart of F1 team performance, scatterplot of the 
+of a [bar chart](#bar-chart) of F1 team performance, [scatterplot](#scatterplot) of the 
 [UCI cars dataset](http://archive.ics.uci.edu/ml/datasets/Auto+MPG), and 
-a network graph of the Vienna U-Bahn stations and connections.
+a [network graph](#network-graph) of the Vienna U-Bahn stations and connections.
 
 ## Running
 
