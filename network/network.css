@@ -3,10 +3,22 @@ svg {
   border: 1px solid grey;
 }
 
+/* Step 3: add nodes */
+.station {
+  fill: black;
+}
+
+/* Step 8: add drag event */
+.station:hover {
+  fill: steelblue;
+}
+
+/* Step 4: add edges */
 .line {
   stroke-width: 2px;
 }
 
+/* Step 7: add tooltips */
 .station-tip {
   line-height: 1;
   font-weight: bold;
