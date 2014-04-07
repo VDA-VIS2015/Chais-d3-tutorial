@@ -4,27 +4,10 @@ svg {
 }
 
 /* Step 4: add edges */
-.line {
-  stroke-width: 3px;
-}
 
 /* Step 5: add nodes */
-.station {
-  fill: black;
-}
-
-/* Step 8: add tooltips */
-.station-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  border-radius: 2px;
-}
 
 /* Step 7: add drag event */
-.station:hover {
-  fill: steelblue;
-}
+
+/* Step 8: add tooltips */
 
