@@ -44,9 +44,10 @@ d3.json("ubahn.json", function(error, graph) {
       .data(graph.nodes)
     .enter().append("circle")
       .attr("class", "station")
-      .attr("r", 7);
+      .attr("r", 7)
+      .call(layout.drag);
 
-// Step 7: add drag event
+  // Step 7: add drag event
   
 // Step 8: add tooltips
   

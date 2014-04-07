@@ -14,6 +14,9 @@ svg {
 }
 
 /* Step 7: add drag event */
+.station:hover {
+  fill: steelblue;
+}
 
 /* Step 8: add tooltips */
 
