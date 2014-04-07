@@ -45,6 +45,10 @@ d3.csv("f1.csv", function(error, data) {
       .range([height, 0]) // y is backwards because 0 is the top left corner
       .domain([minPoints, maxPoints]);
 
+  // Step 7: color bars
+  var teamColors = d3.scale.category10()
+      .domain(teams);
+
   // Step 5: set up the axes
   var xAxis = d3.svg.axis()
       .scale(mainX)
@@ -72,9 +76,8 @@ d3.csv("f1.csv", function(error, data) {
          .attr("width", subX.rangeBand())
          .attr("x", function(d) {return subX(d.constructor);})
          .attr("y", function(d) {return y(d.points);})
-         .attr("height", function(d) {return height - y(d.points);});
-
-// Step 7: color bars
+         .attr("height", function(d) {return height - y(d.points);})
+         .style("fill", function(d) {return teamColors(d.constructor);});
 
 // Step 8: add the legend for the colors
 
