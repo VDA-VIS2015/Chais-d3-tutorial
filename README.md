@@ -43,4 +43,6 @@ python -m SimpleHTTPServer
 6. Add edges
 7. Color edges
 8. Add drag event
-9. Questions?
+9. Add tooltips
+10. Questions?
+
