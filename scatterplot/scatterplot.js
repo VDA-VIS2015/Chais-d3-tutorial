@@ -38,7 +38,16 @@ d3.csv("cars.csv", function(error, data) {
   // put cylinders in order
   cylinders.sort(d3.ascending);
 
-// Step 3: add scales
+  // Step 3: add scales
+  var x = d3.scale.linear()
+      .range([0, width])
+      .domain([minWeight, maxWeight]);
+  var y = d3.scale.linear()
+      .range([height, 0])
+      .domain([minMpg, maxMpg]);
+  var colors = d3.scale.ordinal()
+      .range(colorbrewer.Set2[cylinders.length])
+      .domain(cylinders);
 
 // Step 4: add axes
   
