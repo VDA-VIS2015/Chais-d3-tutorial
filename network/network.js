@@ -26,7 +26,12 @@ d3.json("ubahn.json", function(error, graph) {
       .links(graph.links)
       .start();
 
-// Step 4: add edges
+  // Step 4: add edges
+  // Add these first so nodes are over the edges
+  var link = svg.selectAll(".line")
+      .data(graph.links)
+    .enter().append("line")
+      .attr("class", "line");
 
 // Step 5: add nodes
 
@@ -38,6 +43,10 @@ d3.json("ubahn.json", function(error, graph) {
   
   // This gets updated every time the layout iterates
   layout.on("tick", function() {
+    link.attr("x1", function(d) {return d.source.x;})
+        .attr("y1", function(d) {return d.source.y;})
+        .attr("x2", function(d) {return d.target.x;})
+        .attr("y2", function(d) {return d.target.y;});
   });
 
 });
