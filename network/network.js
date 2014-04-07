@@ -17,7 +17,14 @@ var chart = svg.append("g")
 // Step 2: add data
 d3.json("ubahn.json", function(error, graph) {
 
-// Step 3: add layout
+  // Step 3: add layout
+  var layout = d3.layout.force()
+      .linkDistance(50)
+      .charge(-150)
+      .size([width, height])
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
 
 // Step 4: add edges
 
