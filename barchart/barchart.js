@@ -48,6 +48,8 @@ d3.csv("f1.csv", function(error, data) {
   // Step 7: color bars
   var teamColors = d3.scale.category10()
       .domain(teams);
+  var yearColors = d3.scale.category10()
+      .domain(years);
 
   // Step 5: set up the axes
   var xAxis = d3.svg.axis()
@@ -104,6 +106,31 @@ d3.csv("f1.csv", function(error, data) {
           .text(function(d) {return d;});
   }
 
-// Step 9: add interactivity
+  // Step 9: add interactivity
+  d3.selectAll("input").on("change", function() {
+    if(this.value === "year") {
+      changeLayout(teams, years, yearColors, "constructor", "year");
+      computeLegend(years, yearColors);
+    } else {
+      changeLayout(years, teams, teamColors, "year", "constructor");
+      computeLegend(teams, teamColors);
+    }
+  });
+
+  function changeLayout(main, sub, colors, mainKey, subKey) {
+    mainX.domain(main);
+    subX.domain(sub)
+        .rangeRoundBands([0, mainX.rangeBand()], 0.1);
+    chart.selectAll(".x.axis").call(xAxis);
+    chart.selectAll(".group")
+         .data(data)
+         .transition().delay(100)
+         .attr("transform", function(d) {
+           return "translate("+mainX(d[mainKey])+",0)";
+         }).selectAll("rect")
+           .attr("width", subX.rangeBand())
+           .attr("x", function(d) {return subX(d[subKey]);})
+           .style("fill", function(d) {return colors(d[subKey]);});
+  }
 
 });
