@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+  
+  .barEN {
+    fill: steelblue;
+  }
+
+  .barDE {
+    fill: #AA0055;
+  }
+  
+  .barEN:hover {
+    fill: red;
+  }
+
+  .barDE:hover {
+    fill: red;
+  }
+  
+  .axis {
+    font: 10px sans-serif;
+  }
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  .x.axis path {
+    display: none;
+  }
+  
+  </style>
+</head>
+<body>
+  <svg id="chart" />
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="barchart.js"></script>
+
+  <br>Sort by: 
+    <input type="radio" name="sorting" value="alphabet" checked>alphabet</input>
+    <input type="radio" name="sorting" value="frequencyEN">frequency (english)</input>
+    <input type="radio" name="sorting" value="frequencyDE">frequency (german)</input>
+</body>
+</html>
+
