@@ -66,7 +66,7 @@ d3.csv("f1.csv", function(error, data) {
   chart.append("g")
        .attr("class", "y axis")
        .call(yAxis);
-  
+
   // Step 6: add the bars
   chart.selectAll(".group")
        .data(data)
